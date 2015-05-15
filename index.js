@@ -1,39 +1,41 @@
 'use strict';
 
-var elixir = require('laravel-elixir');
-var notification = require('laravel-elixir/ingredients/commands/Notification');
-var utilities = require('laravel-elixir/ingredients/commands/Utilities');
 var _ = require('underscore');
+var elixir = require('laravel-elixir');
 var gulp = require('gulp');
+var notification = require('laravel-elixir/ingredients/commands/Notification');
 var plugins = require('gulp-load-plugins')();
+var utilities = require('laravel-elixir/ingredients/commands/Utilities');
 
-elixir.extend('postcss', function(options) {
+elixir.extend('postcss', function(src, options) {
+
+  var config = this;
 
   var name = "postcss";
 
-  var dir = elixir.config.assetsDir + name;
-
   options = _.extend({
-    src: dir + '**/*.css',
-    search: '**/*.css'
+    output: config.cssOutput,
+    plugins: [],
+    srcDir: config.assetsDir + name,
+    search: '/**/*.css'
   }, options);
 
-  var src = utilities.buildGulpSrc(options.src, dir, options.search);
+  var src = utilities.buildGulpSrc(src, options.srcDir);
 
   gulp.task(name, function() {
 
     return gulp.src(src)
-      .pipe(plugins.if(elixir.config.sourcemaps, plugins.sourcemaps.init()))
-      .pipe(plugins.postcss(options.processors))
-      .pipe(plugins.if(elixir.config.production, plugins.minifyCss()))
-      .pipe(plugins.if(elixir.config.sourcemaps, plugins.sourcemaps.write('.')))
-      .pipe(gulp.dest(elixir.config.cssOutput))
+      .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
+      .pipe(plugins.postcss(options.plugins))
+      .pipe(plugins.if(config.production, plugins.minifyCss()))
+      .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
+      .pipe(gulp.dest(options.output))
       .pipe(new notification().message(name + ' Compiled!'));
 
   });
 
-  return elixir.config
-    .registerWatcher(name, dir + '/' + options.search)
+  return config
+    .registerWatcher(name, options.srcDir + options.search)
     .queueTask("postcss");
 
 });

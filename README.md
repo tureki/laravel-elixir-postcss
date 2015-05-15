@@ -11,16 +11,26 @@ $ npm install laravel-elixir-postcss --save-dev
 
 ```javascript
 
+elixir.postcss(src:'app.css', options);
+
+```
+
+Example:
+
+```javascript
+
 var elixir = require('laravel-elixir');
 
 require('laravel-elixir-postcss');
 
 elixir(function(mix) {
- 
-    mix.postcss({
-      src:'app.css',
-      processors:[ require('postcss-nested') ] //postcss's plugins
-    });
+  
+  //app.css, *.css, **/*.css    
+  mix.postcss('app.css', {
+    plugins:[ //postcss's plugins
+      require('postcss-nested')
+    ] 
+  });
 
 });
 
@@ -33,11 +43,13 @@ Or run `PostCSS` with `csstyle`:
 ...
 
 elixir(function(mix) {
- 
-    mix.postcss({
-      src:'app.css',
-      processors:[ require('postcss-nested'), require('csstyle') ]
-    });
+  
+  mix.postcss('app.css', {
+    plugins:[ // multi plugin
+      require('postcss-nested'),
+      require('csstyle')
+    ] 
+  });
 
 });
 
@@ -48,3 +60,16 @@ Then run:
 ```sh
 $ gulp
 ```
+
+
+##Default Options
+
+```javascript
+{
+  output  : config.cssOutput,
+  plugins : [],
+  srcDir  : config.assetsDir + 'postcss',
+  search  : '/**/*.css'
+}
+```
+
