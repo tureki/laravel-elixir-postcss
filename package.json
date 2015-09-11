@@ -25,7 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "underscore": "^1.8.2",
-    "gulp-postcss": "^5.1.6",
+    "gulp-postcss": "^6.0.0",
     "gulp-if": "^1.2.5",
     "gulp-minify-css": "^0.3.10",
     "gulp-load-plugins": "^0.7.0",
