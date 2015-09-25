@@ -1,30 +1,26 @@
 'use strict';
 
-var _ = require('underscore');
-var elixir = require('laravel-elixir');
-var gulp = require('gulp');
-var notification = require('laravel-elixir/ingredients/commands/Notification');
-var plugins = require('gulp-load-plugins')();
-var utilities = require('laravel-elixir/ingredients/commands/Utilities');
+var _            = require('underscore');
+var elixir       = require('laravel-elixir');
+var notification = require('laravel-elixir/Notification');
+var gulp         = require('gulp');
+var plugins      = require('gulp-load-plugins')();
+var config       = elixir.config;
+var task         = elixir.Task;
+var name         = "postcss";
 
-elixir.extend('postcss', function(src, options) {
-
-  var config = this;
-
-  var name = "postcss";
+elixir.extend(name, function(src, options) {
 
   options = _.extend({
-    output: config.cssOutput,
+    output: config.get('public.postcss.outputFolder'),
     plugins: [],
-    srcDir: config.assetsDir + name,
+    srcDir: config.get('assets.postcss.folder') + '/' + src,
     search: '/**/*.css'
   }, options);
 
-  var src = utilities.buildGulpSrc(src, options.srcDir);
+  new task(name, function() {
 
-  gulp.task(name, function() {
-
-    return gulp.src(src)
+    return gulp.src(options.srcDir)
       .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
       .pipe(plugins.postcss(options.plugins))
       .pipe(plugins.if(config.production, plugins.minifyCss()))
@@ -32,10 +28,7 @@ elixir.extend('postcss', function(src, options) {
       .pipe(gulp.dest(options.output))
       .pipe(new notification().message(name + ' Compiled!'));
 
-  });
-
-  return config
-    .registerWatcher(name, options.srcDir + options.search)
-    .queueTask("postcss");
+  })
+  .watch(options.srcDir + options.search);
 
 });
