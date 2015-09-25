@@ -66,10 +66,9 @@ $ gulp
 
 ```javascript
 {
-  output  : config.cssOutput,
+  output  : 'public/css',
   plugins : [],
-  srcDir  : config.assetsDir + 'postcss',
+  srcDir  : 'resources/assets/postcss/',
   search  : '/**/*.css'
 }
 ```
-
