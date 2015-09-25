@@ -6,19 +6,18 @@ var notification = require('laravel-elixir/Notification');
 var gulp         = require('gulp');
 var plugins      = require('gulp-load-plugins')();
 var config       = elixir.config;
-var task         = elixir.Task;
-var name         = "postcss";
+var name         = 'postcss';
 
 elixir.extend(name, function(src, options) {
 
   options = _.extend({
-    output: config.get('public.postcss.outputFolder'),
+    output: 'public/css',
     plugins: [],
-    srcDir: config.get('assets.postcss.folder') + '/' + src,
+    srcDir: 'resources/assets/postcss/' + src,
     search: '/**/*.css'
   }, options);
 
-  new task(name, function() {
+  new elixir.Task(name, function() {
 
     return gulp.src(options.srcDir)
       .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
