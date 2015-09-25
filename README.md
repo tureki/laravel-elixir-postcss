@@ -1,5 +1,5 @@
 # laravel-elixir-postcss
-Laravel Elixir PostCSS Extension.
+(Support for Elixir V3) Laravel Elixir PostCSS Extension.
 
 ## Install
 
@@ -45,7 +45,7 @@ Or run `PostCSS` with `csstyle`:
 elixir(function(mix) {
   
   mix.postcss('app.css', {
-    plugins:[ // multi plugin
+    plugins:[ 
       require('postcss-nested'),
       require('csstyle')
     ] 
