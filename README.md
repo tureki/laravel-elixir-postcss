@@ -69,6 +69,6 @@ $ gulp
   output  : 'public/css',
   plugins : [],
   srcDir  : 'resources/assets/postcss/',
-  search  : '/**/*.css'
+  search  : '**/*.css'
 }
 ```
