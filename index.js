@@ -9,7 +9,7 @@ var plugins      = require('gulp-load-plugins')();
 var config       = elixir.config;
 var name         = 'postcss';
 
-elixir.extend(name, function(src, options) {
+elixir.extend('postcss', function(src, options) {
 
   options = _.extend({
     output: 'public/css',
