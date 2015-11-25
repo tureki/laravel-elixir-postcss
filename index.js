@@ -7,9 +7,10 @@ var gulp         = require('gulp');
 var gutil        = require('gulp-util');
 var plugins      = require('gulp-load-plugins')();
 var config       = elixir.config;
-var name         = 'postcss';
 
 elixir.extend('postcss', function(src, options) {
+
+  var name = 'postcss';
 
   options = _.extend({
     output: 'public/css',
