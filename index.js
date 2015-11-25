@@ -7,15 +7,15 @@ var gulp         = require('gulp');
 var gutil        = require('gulp-util');
 var plugins      = require('gulp-load-plugins')();
 var config       = elixir.config;
-var name         = 'postcss';
 
-elixir.extend(name, function(src, options) {
+elixir.extend('postcss', function(src, options) {
+
+  var name = 'postcss';
 
   options = _.extend({
     output: 'public/css',
     plugins: [],
-    srcDir: 'resources/assets/postcss/',
-    search: '**/*.css'
+    srcDir: 'resources/assets/postcss/'
   }, options);
 
   new elixir.Task(name, function() {
@@ -36,6 +36,6 @@ elixir.extend(name, function(src, options) {
       .pipe(new notification().message(name + ' Compiled!'));
 
   })
-  .watch([options.srcDir + options.search]);
+  .watch([options.srcDir + '/**/*.css']);
 
 });

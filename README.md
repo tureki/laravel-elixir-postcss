@@ -1,11 +1,13 @@
 # laravel-elixir-postcss
 (Support for Elixir V3) Laravel Elixir PostCSS Extension.
 
+
 ## Install
 
 ```sh
 $ npm install laravel-elixir-postcss --save-dev
 ```
+
 
 ## Usage
 
@@ -61,14 +63,15 @@ Then run:
 $ gulp
 ```
 
+Or run `gulp watch`
 
-##Default Options
+
+## Default Options
 
 ```javascript
 {
   output  : 'public/css',
   plugins : [],
-  srcDir  : 'resources/assets/postcss/',
-  search  : '**/*.css'
+  srcDir  : 'resources/assets/postcss/'
 }
 ```
