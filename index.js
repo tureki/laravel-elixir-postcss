@@ -14,8 +14,7 @@ elixir.extend('postcss', function(src, options) {
   options = _.extend({
     output: 'public/css',
     plugins: [],
-    srcDir: 'resources/assets/postcss/',
-    search: '**/*.css'
+    srcDir: 'resources/assets/postcss/'
   }, options);
 
   new elixir.Task(name, function() {
@@ -36,6 +35,6 @@ elixir.extend('postcss', function(src, options) {
       .pipe(new notification().message(name + ' Compiled!'));
 
   })
-  .watch([options.srcDir + options.search]);
+  .watch([options.srcDir + '/**/*.css']);
 
 });
