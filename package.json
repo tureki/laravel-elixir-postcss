@@ -1,6 +1,6 @@
 {
   "name": "laravel-elixir-postcss",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Laravel Elixir PostCSS Extension",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,7 @@
     "underscore": "^1.8.2",
     "gulp-postcss": "^6.0.1",
     "gulp-if": "^1.2.5",
-    "gulp-minify-css": "^0.3.10",
+    "gulp-cssnano": "^2.0.0",
     "gulp-load-plugins": "^0.7.0",
     "gulp-sourcemaps": "^1.3.0",
     "gulp-util": "^3.0.6"

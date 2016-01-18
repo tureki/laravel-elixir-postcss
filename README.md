@@ -75,3 +75,8 @@ Or run `gulp watch`
   srcDir  : 'resources/assets/postcss/'
 }
 ```
+
+## Todo
+
+1. Add Unit Test
+2. Integrate CI

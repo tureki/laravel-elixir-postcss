@@ -30,7 +30,7 @@ elixir.extend('postcss', function(src, options) {
     return gulp.src(options.srcDir + src)
       .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
       .pipe(plugins.postcss(options.plugins).on('error', err))
-      .pipe(plugins.if(config.production, plugins.minifyCss()))
+      .pipe(plugins.if(config.production, plugins.cssnano(config.css.cssnano.pluginOptions)))
       .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
       .pipe(gulp.dest(options.output))
       .pipe(new notification().message(name + ' Compiled!'));
