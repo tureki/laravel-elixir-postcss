@@ -12,6 +12,8 @@ elixir.extend('postcss', function(src, options) {
 
   var name = 'postcss';
 
+  var css = config.css;
+
   options = _.extend({
     output: 'public/css',
     plugins: [],
@@ -19,6 +21,8 @@ elixir.extend('postcss', function(src, options) {
   }, options);
 
   new elixir.Task(name, function() {
+
+    var cssnano = css.cssnano ? css.cssnano.pluginOptions : undefined;
 
     var err = function(e) {
       // line break
@@ -30,7 +34,7 @@ elixir.extend('postcss', function(src, options) {
     return gulp.src(options.srcDir + src)
       .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
       .pipe(plugins.postcss(options.plugins).on('error', err))
-      .pipe(plugins.if(config.production, plugins.cssnano(config.css.cssnano.pluginOptions)))
+      .pipe(plugins.if(config.production, plugins.cssnano(cssnano)))
       .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
       .pipe(gulp.dest(options.output))
       .pipe(new notification().message(name + ' Compiled!'));
