@@ -17,7 +17,8 @@ elixir.extend('postcss', function(src, options) {
   options = _.extend({
     output: 'public/css',
     plugins: [],
-    srcDir: 'resources/assets/postcss/'
+    srcDir: 'resources/assets/postcss/',
+    sourcemaps: options.sourcemaps ? options.sourcemaps : config.sourcemaps,
   }, options);
 
   new elixir.Task(name, function() {
@@ -32,10 +33,10 @@ elixir.extend('postcss', function(src, options) {
     };
 
     return gulp.src(options.srcDir + src)
-      .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
+      .pipe(plugins.if(options.sourcemaps, plugins.sourcemaps.init()))
       .pipe(plugins.postcss(options.plugins).on('error', err))
       .pipe(plugins.if(config.production, plugins.cssnano(cssnano)))
-      .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('.')))
+      .pipe(plugins.if(options.sourcemaps, plugins.sourcemaps.write('.')))
       .pipe(gulp.dest(options.output))
       .pipe(new notification().message(name + ' Compiled!'));
 
