@@ -1,5 +1,5 @@
 # laravel-elixir-postcss
-(Support for Elixir V5) Laravel Elixir PostCSS Extension.
+(Support for Elixir V6) Laravel Elixir PostCSS Extension.
 
 
 ## Install
@@ -76,6 +76,11 @@ Or run `gulp watch`
   sourcemaps: true, // default value follow `elixir.config.sourcemaps`
 }
 ```
+
+
+## Contributing
+Welcome [PR](https://github.com/tureki/laravel-elixir-postcss/pulls)
+
 
 ## Todo
 

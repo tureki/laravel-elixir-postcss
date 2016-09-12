@@ -2,7 +2,7 @@
 
 var _            = require('underscore');
 var elixir       = require('laravel-elixir');
-var notification = require('laravel-elixir/Notification');
+var notification = undefined;
 var gulp         = require('gulp');
 var gutil        = require('gulp-util');
 var plugins      = require('gulp-load-plugins')();
@@ -10,9 +10,14 @@ var config       = elixir.config;
 
 elixir.extend('postcss', function(src, options) {
 
+  var css = config.css;
   var name = 'postcss';
 
-  var css = config.css;
+  try {
+      notification = require('laravel-elixir/Notification');
+  } catch (e) {
+      notification = Elixir.Notification;
+  }
 
   options = _.extend({
     output: 'public/css',
@@ -32,6 +37,12 @@ elixir.extend('postcss', function(src, options) {
       console.log('   - ' + e.message);
     };
 
+    if(typeof this.recordStep !== 'undefined') {
+        this.recordStep('Post processing CSS');
+        this.src = options.srcDir + src;
+        this.output = options.output;
+    }
+
     return gulp.src(options.srcDir + src)
       .pipe(plugins.if(options.sourcemaps, plugins.sourcemaps.init()))
       .pipe(plugins.postcss(options.plugins).on('error', err))
@@ -39,7 +50,6 @@ elixir.extend('postcss', function(src, options) {
       .pipe(plugins.if(options.sourcemaps, plugins.sourcemaps.write('.')))
       .pipe(gulp.dest(options.output))
       .pipe(new notification().message(name + ' Compiled!'));
-
   })
   .watch([options.srcDir + '/**/*.css']);
 
