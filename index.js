@@ -13,6 +13,7 @@ elixir.extend('postcss', function(src, options) {
   var name = 'postcss';
   var notification = elixir.Notification ? elixir.Notification : require('laravel-elixir/Notification');
 
+  options = _.extend({}, options);
 
   options = _.extend({
     output: 'public/css',
