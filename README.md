@@ -74,6 +74,7 @@ Or run `gulp watch`
   plugins : [],
   srcDir  : 'resources/assets/postcss/',
   sourcemaps: true, // default value follow `elixir.config.sourcemaps`
+  watch: [], // set additional watch directories here.
 }
 ```
 

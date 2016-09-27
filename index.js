@@ -2,7 +2,6 @@
 
 var _            = require('underscore');
 var elixir       = require('laravel-elixir');
-var notification = undefined;
 var gulp         = require('gulp');
 var gutil        = require('gulp-util');
 var plugins      = require('gulp-load-plugins')();
@@ -12,18 +11,16 @@ elixir.extend('postcss', function(src, options) {
 
   var css = config.css;
   var name = 'postcss';
+  var notification = elixir.Notification ? elixir.Notification : require('laravel-elixir/Notification');
 
-  try {
-      notification = require('laravel-elixir/Notification');
-  } catch (e) {
-      notification = Elixir.Notification;
-  }
+  options = _.extend({}, options);
 
   options = _.extend({
     output: 'public/css',
     plugins: [],
     srcDir: 'resources/assets/postcss/',
     sourcemaps: options.sourcemaps ? options.sourcemaps : config.sourcemaps,
+    watch: [],
   }, options);
 
   new elixir.Task(name, function() {
@@ -51,6 +48,6 @@ elixir.extend('postcss', function(src, options) {
       .pipe(gulp.dest(options.output))
       .pipe(new notification().message(name + ' Compiled!'));
   })
-  .watch([options.srcDir + '/**/*.css']);
+  .watch(_.union([options.srcDir + '/**/*.css'], options.watch));
 
 });
