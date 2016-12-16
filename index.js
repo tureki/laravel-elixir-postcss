@@ -26,6 +26,7 @@ elixir.extend('postcss', function(src, opts) {
   new elixir.Task(name, function() {
 
     var cssnano = css.cssnano ? css.cssnano.pluginOptions : undefined;
+    var srcPath = opts.srcPath + '/' + src;
 
     var err = function(e) {
       // line break
@@ -36,11 +37,11 @@ elixir.extend('postcss', function(src, opts) {
 
     if(typeof this.recordStep !== 'undefined') {
         this.recordStep('Post processing CSS');
-        this.src = opts.srcPath + src;
+        this.src = srcPath;
         this.output = opts.output;
     }
 
-    return gulp.src(opts.srcPath + src)
+    return gulp.src(srcPath)
       .pipe(plugins.if(opts.sourcemaps, plugins.sourcemaps.init()))
       .pipe(plugins.postcss(opts.plugins).on('error', err))
       .pipe(plugins.if(config.production, plugins.cssnano(cssnano)))
