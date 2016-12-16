@@ -7,21 +7,21 @@ var gutil        = require('gulp-util');
 var plugins      = require('gulp-load-plugins')();
 var config       = elixir.config;
 
-elixir.extend('postcss', function(src, options) {
+elixir.extend('postcss', function(src, opts) {
 
   var css = config.css;
   var name = 'postcss';
   var notification = elixir.Notification ? elixir.Notification : require('laravel-elixir/Notification');
 
-  options = _.extend({}, options);
+  opts = _.extend({}, opts);
 
-  options = _.extend({
+  opts = _.extend({
     output: 'public/css',
     plugins: [],
     srcDir: 'resources/assets/postcss/',
-    sourcemaps: options.sourcemaps ? options.sourcemaps : config.sourcemaps,
+    sourcemaps: opts.sourcemaps ? opts.sourcemaps : config.sourcemaps,
     watch: [],
-  }, options);
+  }, opts);
 
   new elixir.Task(name, function() {
 
@@ -36,18 +36,18 @@ elixir.extend('postcss', function(src, options) {
 
     if(typeof this.recordStep !== 'undefined') {
         this.recordStep('Post processing CSS');
-        this.src = options.srcDir + src;
-        this.output = options.output;
+        this.src = opts.srcDir + src;
+        this.output = opts.output;
     }
 
-    return gulp.src(options.srcDir + src)
-      .pipe(plugins.if(options.sourcemaps, plugins.sourcemaps.init()))
-      .pipe(plugins.postcss(options.plugins).on('error', err))
+    return gulp.src(opts.srcDir + src)
+      .pipe(plugins.if(opts.sourcemaps, plugins.sourcemaps.init()))
+      .pipe(plugins.postcss(opts.plugins).on('error', err))
       .pipe(plugins.if(config.production, plugins.cssnano(cssnano)))
-      .pipe(plugins.if(options.sourcemaps, plugins.sourcemaps.write('.')))
-      .pipe(gulp.dest(options.output))
+      .pipe(plugins.if(opts.sourcemaps, plugins.sourcemaps.write('.')))
+      .pipe(gulp.dest(opts.output))
       .pipe(new notification().message(name + ' Compiled!'));
   })
-  .watch(_.union([options.srcDir + '/**/*.css'], options.watch));
+  .watch(_.union([opts.srcDir + '/**/*.css'], opts.watch));
 
 });
