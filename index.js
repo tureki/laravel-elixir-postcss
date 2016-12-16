@@ -17,6 +17,7 @@ elixir.extend('postcss', function(src, opts) {
 
   opts = _.extend({
     output: config.publicPath + '/' + config.css.folder,
+    options: {},
     plugins: [],
     srcPath: config.assetsPath + '/' + name,
     sourcemaps: opts.sourcemaps ? opts.sourcemaps : config.sourcemaps,
@@ -43,7 +44,7 @@ elixir.extend('postcss', function(src, opts) {
 
     return gulp.src(srcPath)
       .pipe(plugins.if(opts.sourcemaps, plugins.sourcemaps.init()))
-      .pipe(plugins.postcss(opts.plugins).on('error', err))
+      .pipe(plugins.postcss(opts.plugins, opts.options).on('error', err))
       .pipe(plugins.if(config.production, plugins.cssnano(cssnano)))
       .pipe(plugins.if(opts.sourcemaps, plugins.sourcemaps.write('.')))
       .pipe(gulp.dest(opts.output))
