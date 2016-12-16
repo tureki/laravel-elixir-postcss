@@ -16,9 +16,9 @@ elixir.extend('postcss', function(src, opts) {
   opts = _.extend({}, opts);
 
   opts = _.extend({
-    output: 'public/css',
+    output: config.publicPath + '/' + config.css.folder,
     plugins: [],
-    srcPath: 'resources/assets/postcss/',
+    srcPath: config.assetsPath + '/' + name,
     sourcemaps: opts.sourcemaps ? opts.sourcemaps : config.sourcemaps,
     watch: [],
   }, opts);
