@@ -18,7 +18,7 @@ elixir.extend('postcss', function(src, opts) {
   opts = _.extend({
     output: 'public/css',
     plugins: [],
-    srcDir: 'resources/assets/postcss/',
+    srcPath: 'resources/assets/postcss/',
     sourcemaps: opts.sourcemaps ? opts.sourcemaps : config.sourcemaps,
     watch: [],
   }, opts);
@@ -36,11 +36,11 @@ elixir.extend('postcss', function(src, opts) {
 
     if(typeof this.recordStep !== 'undefined') {
         this.recordStep('Post processing CSS');
-        this.src = opts.srcDir + src;
+        this.src = opts.srcPath + src;
         this.output = opts.output;
     }
 
-    return gulp.src(opts.srcDir + src)
+    return gulp.src(opts.srcPath + src)
       .pipe(plugins.if(opts.sourcemaps, plugins.sourcemaps.init()))
       .pipe(plugins.postcss(opts.plugins).on('error', err))
       .pipe(plugins.if(config.production, plugins.cssnano(cssnano)))
@@ -48,6 +48,6 @@ elixir.extend('postcss', function(src, opts) {
       .pipe(gulp.dest(opts.output))
       .pipe(new notification().message(name + ' Compiled!'));
   })
-  .watch(_.union([opts.srcDir + '/**/*.css'], opts.watch));
+  .watch(_.union([opts.srcPath + '/**/*.css'], opts.watch));
 
 });
