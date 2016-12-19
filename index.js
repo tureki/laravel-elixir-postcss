@@ -4,6 +4,7 @@ var _      = require('underscore');
 var elixir = require('laravel-elixir');
 var gulp   = require('gulp');
 var gutil  = require('gulp-util');
+var rename = require('gulp-rename');
 var $      = require('gulp-load-plugins')();
 var config = elixir.config;
 
@@ -46,6 +47,7 @@ elixir.extend('postcss', function(src, opts) {
       .pipe($.if(opts.sourcemaps, $.sourcemaps.init()))
       .pipe($.postcss(opts.plugins, opts.options).on('error', err))
       .pipe($.if(config.production, $.cssnano(cssnano)))
+      .pipe(rename({ extname: '.css' }))
       .pipe($.if(opts.sourcemaps, $.sourcemaps.write('.')))
       .pipe(gulp.dest(opts.output))
       .pipe(new notification().message(name + ' Compiled!'));

@@ -29,6 +29,7 @@
     "gulp-if": "^2.0.2",
     "gulp-load-plugins": "^1.4.0",
     "gulp-postcss": "^6.2.0",
+    "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.9.1",
     "gulp-util": "^3.0.6",
     "underscore": "^1.8.3"
