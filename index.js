@@ -1,11 +1,11 @@
 'use strict';
 
-var _            = require('underscore');
-var elixir       = require('laravel-elixir');
-var gulp         = require('gulp');
-var gutil        = require('gulp-util');
+var _      = require('underscore');
+var elixir = require('laravel-elixir');
+var gulp   = require('gulp');
+var gutil  = require('gulp-util');
 var $      = require('gulp-load-plugins')();
-var config       = elixir.config;
+var config = elixir.config;
 
 elixir.extend('postcss', function(src, opts) {
 
@@ -37,9 +37,9 @@ elixir.extend('postcss', function(src, opts) {
     };
 
     if(typeof this.recordStep !== 'undefined') {
-        this.recordStep('Post processing CSS');
-        this.src = srcPath;
-        this.output = opts.output;
+      this.recordStep('Post processing CSS');
+      this.src = srcPath;
+      this.output = opts.output;
     }
 
     return gulp.src(srcPath)
