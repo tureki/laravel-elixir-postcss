@@ -37,10 +37,12 @@
   "bugs": {
     "url": "https://github.com/tureki/laravel-elixir-postcss/issues"
   },
-  "maintainers": [{
-    "name": "tureki",
-    "email": "tureki@me.com"
-  }]
+  "maintainers": [
+    {
+      "name": "tureki",
+      "email": "tureki@me.com"
+    }
+  ],
   "devDependencies": {
     "eslint": "^3.12.2"
   }
