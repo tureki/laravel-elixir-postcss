@@ -1,10 +1,16 @@
 # laravel-elixir-postcss
-(Support for Elixir V6) Laravel Elixir PostCSS Extension.
+[![Build Status](https://travis-ci.org/tureki/laravel-elixir-postcss.svg?branch=master)](https://travis-ci.org/tureki/laravel-elixir-postcss)
+[![npm Version](https://img.shields.io/npm/v/laravel-elixir-postcss.svg)](https://www.npmjs.com/package/laravel-elixir-postcss)
+[![npm License](https://img.shields.io/npm/l/laravel-elixir-postcss.svg)](https://www.npmjs.com/package/laravel-elixir-postcss)
+
+This Laravel Elixir extension allows you easy to compile PostCSS.
+
+If this package helpful and save your time. Do not forget star it :)
 
 
-## Install
+## Installation
 
-```sh
+```bash
 $ npm install laravel-elixir-postcss --save-dev
 ```
 
@@ -12,78 +18,81 @@ $ npm install laravel-elixir-postcss --save-dev
 ## Usage
 
 ```javascript
-
-elixir.postcss(src:'app.css', options);
-
+elixir(function(mix) {
+  //app.css, *.css, **/*.css
+   elixir.postcss('app.css');
+});
 ```
 
-Example:
+#### Using PostCSS Plugins
 
 ```javascript
-
-var elixir = require('laravel-elixir');
-
-require('laravel-elixir-postcss');
-
 elixir(function(mix) {
-  
-  //app.css, *.css, **/*.css    
   mix.postcss('app.css', {
-    plugins:[ //postcss's plugins
+    plugins:[
       require('postcss-nested')
-    ] 
+    ]
   });
-
 });
-
 ```
 
-Or run `PostCSS` with `csstyle`:
+#### Using Other Parser
+
+You can set the [options](https://github.com/postcss/postcss#options) using other parsers like `scss`, `sugarss` etc.
 
 ```javascript
-
-...
-
 elixir(function(mix) {
-  
   mix.postcss('app.css', {
-    plugins:[ 
-      require('postcss-nested'),
-      require('csstyle')
-    ] 
+    options: {
+      parser: require('postcss-scss')
+    },
   });
-
 });
-
 ```
 
-Then run:
-
-```sh
-$ gulp
+Use `parser` and `plugins`.
+```javascript
+elixir(function(mix) {
+  mix.postcss('app.css', {
+    options: {
+      parser: require('sugarss')
+    },
+    plugins: [
+      require('postcss-nested')
+    ],
+  });
+});
 ```
 
-Or run `gulp watch`
 
+## Options
 
-## Default Options
+This extension accept two parameters:
 
+* An string of files.
+* An object of options.
+
+Common options:
+
+* `options`: See [postcss common options](https://github.com/postcss/postcss#options).
+* `output`: destination's path
+* `plugins`: postcss's plugins.
+* `srcPath`: source's directory.
+* `sourcemaps`: enable source map.
+* `watchs`: additional watch directories.
+
+#### Default Value
 ```javascript
 {
+  options: {},
   output  : 'public/css',
   plugins : [],
-  srcDir  : 'resources/assets/postcss/',
-  sourcemaps: true, // default value follow `elixir.config.sourcemaps`
-  watch: [], // set additional watch directories here.
+  srcPath  : 'resources/assets/postcss/',
+  sourcemaps: true, //default value follow `elixir.config.sourcemaps`
+  watchs: [],
 }
 ```
 
 
 ## Contributing
-Welcome [PR](https://github.com/tureki/laravel-elixir-postcss/pulls)
-
-
-## Todo
-
-1. Add Unit Test
-2. Integrate CI
+Welcome [PR](https://github.com/tureki/laravel-elixir-postcss/pulls) and play it :smile:
