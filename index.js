@@ -22,7 +22,7 @@ elixir.extend('postcss', function(src, opts) {
     plugins: [],
     srcPath: config.assetsPath + '/' + name,
     sourcemaps: opts.sourcemaps ? opts.sourcemaps : config.sourcemaps,
-    watch: [],
+    watchs: [],
   }, opts);
 
   new elixir.Task(name, function() {
@@ -52,6 +52,6 @@ elixir.extend('postcss', function(src, opts) {
       .pipe(gulp.dest(opts.output))
       .pipe(new notification().message(name + ' Compiled!'));
   })
-  .watch(_.union([opts.srcPath + '/**/*.css'], opts.watch));
+  .watch(_.union([opts.srcPath + '/**/*.css'], opts.watchs));
 
 });
