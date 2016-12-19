@@ -4,6 +4,7 @@
   "description": "Laravel Elixir PostCSS Extension",
   "main": "index.js",
   "scripts": {
+    "eslint": "./node_modules/.bin/eslint '*.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -39,4 +40,7 @@
     "name": "tureki",
     "email": "tureki@me.com"
   }]
+  "devDependencies": {
+    "eslint": "^3.12.2"
+  }
 }
