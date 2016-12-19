@@ -25,13 +25,13 @@
   },
   "license": "MIT",
   "dependencies": {
-    "underscore": "1.8.2",
-    "gulp-postcss": "6.0.1",
-    "gulp-if": "1.2.5",
-    "gulp-cssnano": "2.0.0",
-    "gulp-load-plugins": "1.2.0",
-    "gulp-sourcemaps": "1.3.0",
-    "gulp-util": "3.0.6"
+    "gulp-cssnano": "^2.1.2",
+    "gulp-if": "^2.0.2",
+    "gulp-load-plugins": "^1.4.0",
+    "gulp-postcss": "^6.2.0",
+    "gulp-sourcemaps": "^1.9.1",
+    "gulp-util": "^3.0.6",
+    "underscore": "^1.8.3"
   },
   "bugs": {
     "url": "https://github.com/tureki/laravel-elixir-postcss/issues"
